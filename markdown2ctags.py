@@ -6,6 +6,8 @@
 # This software is licensed as described in the file LICENSE.txt, which
 # you should have received as part of this distribution.
 
+from __future__ import absolute_import
+from __future__ import print_function
 import sys
 import re
 
@@ -63,6 +65,9 @@ class Tag(object):
 
     def __cmp__(self, other):
         return cmp(str(self), str(other))
+
+    def __lt__(self, other):
+        return str(self) < str(other)
 
     @staticmethod
     def section(section):
@@ -221,7 +226,7 @@ def main():
         output = open(options.tagfile, 'wb')
 
     for filename in args:
-        f = open(filename, 'rb')
+        f = open(filename, 'r')
         lines = f.read().splitlines()
         f.close()
         sections = findSections(filename, lines)
@@ -241,5 +246,5 @@ if __name__ == '__main__':
             sys.exit(141)
         raise
     except ScriptError as e:
-        print >>sys.stderr, "ERROR: %s" % str(e)
+        print("ERROR: %s" % str(e), file=sys.stderr)
         sys.exit(1)
