@@ -8,12 +8,22 @@ The motivation was to have a tool fast enough to use with the
 
 ## Using with TagBar
 
-To use this tool with TagBar, add the following into your `~/.vimrc`:
+To use this tool with TagBar, first install markdown2ctags (Python 2 and 3 are
+supported):
+
+```bash
+# Python 2
+pip install markdown2ctags
+# Python 3
+pip3 install markdown2ctags
+```
+
+Then add the following into your `~/.vimrc`:
 
     " Add support for markdown files in tagbar.
     let g:tagbar_type_markdown = {
         \ 'ctagstype': 'markdown',
-        \ 'ctagsbin' : '/path/to/markdown2ctags.py',
+        \ 'ctagsbin' : 'markdown2ctags',
         \ 'ctagsargs' : '-f - --sort=yes',
         \ 'kinds' : [
             \ 's:sections',
